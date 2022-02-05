@@ -37,6 +37,16 @@ object Chapter3 {
         else l
     }
 
+    // Exercise 3.6 - all elements except the last 
+    def init[A](l: List[A]): List[A] = {
+      def loop[A](l: List[A], acc: List[A]): List[A] = l match {
+        case Nil => acc
+        case Cons(head, Nil) => acc
+        case Cons(head, tail) => loop(tail, List.append(acc, List(head)))
+      }
+      loop(l, Nil)
+    }
+
     def sum(ints: List[Int]): Int = ints match {
       case Nil => 0
       case Cons(x,xs) => x + sum(xs)
@@ -48,10 +58,16 @@ object Chapter3 {
       case Cons(x,xs) => x * product(xs)
     }
 
+    def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
+      case Nil => a2
+      case Cons(h,t) => Cons(h, append(t, a2))
+    }
+
+
     def apply[A](as: A*): List[A] =
       if (as.isEmpty) Nil
       else Cons(as.head, apply(as.tail: _*))
-  }
   
+  }
 }
 
