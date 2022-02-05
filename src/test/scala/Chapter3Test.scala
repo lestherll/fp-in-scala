@@ -59,4 +59,41 @@ class Chapter3Test extends AnyFlatSpec {
   it should "be Nil if list is empty" in {
     assert(List.init(Nil) == Nil)
   }
+
+  "List.length" should "count the number of elements" in {
+    assert(List.length(l) == 5)
+  }
+
+  it should "return 0 for Nil or List()" in {
+    assert(List.length(Nil) == 0)
+    assert(List.length(List()) == 0)
+  }
+
+  "List.foldLeft" should "return the total with add function" in {
+    assert(List.foldLeft(l, 0)((x, y) => x+y) == 15)
+  }
+
+  "List.sumLeft" should "return sum of the list elements" in {
+    assert(List.sumLeft(l) == 15)
+  }
+
+  "List.reverse" should "reverse the list passed" in {
+    assert(List.reverse(l) == List(5, 4, 3, 2, 1))
+  }
+
+  "List.foldLeftViaFR" should "fold" in {
+    assert(List.foldLeftViaFR(l, 1)(_ * _) == 120)
+  }
+
+  "List.foldRightViaFL" should "fold" in {
+    assert(List.foldRightViaFL(l, 1)(_ * _) == 120)
+  }
+
+  "List.reduce" should "reduce the elements given f" in {
+    assert(List.reduce(l)(_ + _) == 15)
+  }
+
+  it should "produce Nil when list is empty" in {
+    assertThrows[RuntimeException](List.reduce(Nil: List[Int])(_ + _))
+  }
 }
