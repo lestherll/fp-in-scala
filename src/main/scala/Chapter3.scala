@@ -66,7 +66,7 @@ object Chapter3 {
       case Cons(h, t) => foldLeft(t, f(z, h))(f)
     }
 
-    // Exercise 3.11 - use folLeft to create sumLeft, productLeft, lengthLeft
+    // Exercise 3.11 - use foldLeft to create sumLeft, productLeft, lengthLeft
     // sumLeft
     def sumLeft(l: List[Int]) = foldLeft(l, 0)(_ + _)
 
@@ -90,6 +90,20 @@ object Chapter3 {
     def foldRightViaFL[A, B](l: List[A], z: B)(f: (A, B) => B): B =
       foldLeft(l, (b: B) => b)((g, x) => b => g(f(x, b)))(z)
 
+    // Exercise 3.14 - append in foldLeft or foldRight
+    def appendViaFL[A](l: List[A], r: List[A]) =
+      foldLeft(List.reverse(l), r)((x, y) => Cons(y, x))
+
+    def appendViaFR[A](l: List[A], r: List[A]) = 
+      foldRightViaFL(l, r)(Cons(_, _))
+
+    // Exercise 3.15 - concat a list
+    def concat[A](l: List[List[A]]): List[A] =
+      foldRightViaFL(l, Nil:List[A])(append)
+
+    // Exercise 3.16 - add 1 to each elem
+    def addOne(l: List[Int]) =
+      foldRightViaFL(l, Nil: List[Int])((x, y) => Cons(x+1, y))
 
     // reduce
     def reduce[A](l: List[A])(f: (A, A) => A) = l match {

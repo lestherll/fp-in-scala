@@ -96,4 +96,20 @@ class Chapter3Test extends AnyFlatSpec {
   it should "produce Nil when list is empty" in {
     assertThrows[RuntimeException](List.reduce(Nil: List[Int])(_ + _))
   }
+
+  "List.appendViaFL" should "append correctly" in {
+    assert(List.appendViaFL(l, List(6, 7)) == List(1, 2, 3, 4, 5, 6, 7))
+  }
+
+  "List.appendViaFR" should "append correctly" in {
+    assert(List.appendViaFR(l, List(6, 7)) == List(1, 2, 3, 4, 5, 6, 7))
+  }
+
+  "List.concat" should "concatenate list of lists" in {
+    assert(List.concat(List(l, l, l)) == List(1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5))
+  }
+
+  "List.addOne" should "add one to each element" in {
+    assert(List.addOne(l) == List(2, 3, 4, 5, 6))
+  }  
 }
