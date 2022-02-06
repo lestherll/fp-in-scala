@@ -157,8 +157,7 @@ class Chapter3Test extends AnyFlatSpec {
 
   "Tree.depth" should "check depth" in {
     assert(Tree.depth(Branch(Leaf(1), Leaf(2))) == 1)
-    assert(Tree.depth(Branch(Branch(Leaf(1), Branch(Leaf(1), Leaf(2))), Leaf(2))) == 4)
-    assert(Tree.depth(Branch(Leaf(1), Leaf(2))) == 2)
+    assert(Tree.depth(Branch(Branch(Leaf(1), Branch(Leaf(1), Leaf(2))), Leaf(2))) == 3)
   }
 
   "Tree.map" should "map function over nodes" in {
