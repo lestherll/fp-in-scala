@@ -4,12 +4,11 @@ object Chapter2 {
 
   // exercise 2.1 Fibonacci tail recursive
   def fibonacci(n: Int) = {
-    def loop(a: Int, b: Int, n: Int): Int = 
-      if (n > 0) loop(b, a+b, n-1)
+    def loop(a: Int, b: Int, n: Int): Int =
+      if (n > 0) loop(b, a + b, n - 1)
       else a
-    loop(0, 1, n)    
+    loop(0, 1, n)
   }
-
 
   // Listing 2.3 - Monomorphic function to find a String in an array
   // def findFirst(ss: Array[String], key: String): Int = {
@@ -21,7 +20,7 @@ object Chapter2 {
 
   //   loop(0)
   // }
-  // We can make the function above "polymorphic/generic" by generalising the type requirements. 
+  // We can make the function above "polymorphic/generic" by generalising the type requirements.
   // For example, the algorithm would still be the same as long as the container is a sequence
   // and the elements are of the same type as the key and they have an "equality feature"
 
@@ -34,9 +33,9 @@ object Chapter2 {
   //     else loop(n + 1)
   //   loop(0)
   // }
-  // [A] is called a type parameter like generics in Java, it can ve reference in the rest of the 
+  // [A] is called a type parameter like generics in Java, it can ve reference in the rest of the
   // type signature the type variable A is reference in 2 places and that is inside `as` the array
-  // and as `p`'s parameter This makes becuase finding values in a container where the key does 
+  // and as `p`'s parameter This makes becuase finding values in a container where the key does
   // not have the same type will always not work (edge cases are ignore for clarity)
 
   // Exercise 2.2 - implement an isSorted function that checks whether an Array[A] is sorted
@@ -44,8 +43,8 @@ object Chapter2 {
   def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
     @annotation.tailrec
     def loop(n: Int): Boolean =
-      if (n >= as.length-1) true
-      else if (ordered(as(n), as(n+1))) false
+      if (n >= as.length - 1) true
+      else if (ordered(as(n), as(n + 1))) false
       else loop(n + 1)
     loop(0)
   }

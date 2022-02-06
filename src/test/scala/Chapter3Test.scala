@@ -12,11 +12,11 @@ class Chapter3Test extends AnyFlatSpec {
 
   "Exercise 3.1" should "result to 3" in {
     val x = l match {
-      case Cons(x, Cons(2, Cons(4, _))) => x
-      case Nil => 42
-      case Cons(x, Cons(y, Cons(3, Cons(4, _)))) =>x+y
-      case Cons(h, t) => h + List.sum(t)
-      case _ => 101
+      case Cons(x, Cons(2, Cons(4, _)))          => x
+      case Nil                                   => 42
+      case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
+      case Cons(h, t)                            => h + List.sum(t)
+      case _                                     => 101
     }
     assert(x == 3)
   }
@@ -72,7 +72,7 @@ class Chapter3Test extends AnyFlatSpec {
   }
 
   "List.foldLeft" should "return the total with add function" in {
-    assert(List.foldLeft(l, 0)((x, y) => x+y) == 15)
+    assert(List.foldLeft(l, 0)((x, y) => x + y) == 15)
   }
 
   "List.sumLeft" should "return sum of the list elements" in {
@@ -108,7 +108,10 @@ class Chapter3Test extends AnyFlatSpec {
   }
 
   "List.concat" should "concatenate list of lists" in {
-    assert(List.concat(List(l, l, l)) == List(1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5))
+    assert(
+      List.concat(List(l, l, l)) == List(1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3,
+        4, 5)
+    )
   }
 
   "List.addOne" should "add one to each element" in {
@@ -116,7 +119,9 @@ class Chapter3Test extends AnyFlatSpec {
   }
 
   "List.doubleToString" should "convert list of doubles to list of strings" in {
-    assert(List.doubleToString(l_doubles) == List("1.0", "2.0", "3.0", "4.0", "5.0"))
+    assert(
+      List.doubleToString(l_doubles) == List("1.0", "2.0", "3.0", "4.0", "5.0")
+    )
   }
 
   "List.map" should "map function over elements" in {
@@ -129,8 +134,13 @@ class Chapter3Test extends AnyFlatSpec {
 
   "List.flatMap" should "flatMap" in {
     assert(List.flatMap(l)(i => List(i)) == l)
-    assert(List.flatMap(l)(i => List(i, i)) == List(1, 1, 2, 2, 3, 3, 4, 4, 5, 5))
-    assert(List.flatMap(l)(i => List(i, i*2)) == List(1, 2, 2, 4, 3, 6, 4, 8, 5, 10))
+    assert(
+      List.flatMap(l)(i => List(i, i)) == List(1, 1, 2, 2, 3, 3, 4, 4, 5, 5)
+    )
+    assert(
+      List.flatMap(l)(i => List(i, i * 2)) == List(1, 2, 2, 4, 3, 6, 4, 8, 5,
+        10)
+    )
   }
 
   "List.filterViaFlatMap" should "filter values that match f" in {
@@ -157,10 +167,16 @@ class Chapter3Test extends AnyFlatSpec {
 
   "Tree.depth" should "check depth" in {
     assert(Tree.depth(Branch(Leaf(1), Leaf(2))) == 1)
-    assert(Tree.depth(Branch(Branch(Leaf(1), Branch(Leaf(1), Leaf(2))), Leaf(2))) == 3)
+    assert(
+      Tree.depth(
+        Branch(Branch(Leaf(1), Branch(Leaf(1), Leaf(2))), Leaf(2))
+      ) == 3
+    )
   }
 
   "Tree.map" should "map function over nodes" in {
-    assert(Tree.map(Branch(Leaf(1), Leaf(2)))(x => x+1) == Branch(Leaf(2), Leaf(3)))
+    assert(
+      Tree.map(Branch(Leaf(1), Leaf(2)))(x => x + 1) == Branch(Leaf(2), Leaf(3))
+    )
   }
 }
