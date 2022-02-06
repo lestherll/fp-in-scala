@@ -126,4 +126,22 @@ class Chapter3Test extends AnyFlatSpec {
   "List.filter" should "filter values that match f" in {
     assert(List.filter(l)(_ % 2 == 0) == List(2, 4))
   }
+
+  "List.flatMap" should "flatMap" in {
+    assert(List.flatMap(l)(i => List(i)) == l)
+    assert(List.flatMap(l)(i => List(i, i)) == List(1, 1, 2, 2, 3, 3, 4, 4, 5, 5))
+    assert(List.flatMap(l)(i => List(i, i*2)) == List(1, 2, 2, 4, 3, 6, 4, 8, 5, 10))
+  }
+
+  "List.filterViaFlatMap" should "filter values that match f" in {
+    assert(List.filterViaFlatMap(l)(_ % 2 == 0) == List(2, 4))
+  }
+
+  "List.hasSubseq" should "check subseq" in {
+    assert(List.hasSubseq(l, l) == true)
+    assert(List.hasSubseq(l, List(1)) == true)
+    assert(List.hasSubseq(l, List(3, 4)) == true)
+    assert(List.hasSubseq(l, Nil) == true)
+    assert(List.hasSubseq(l, List(3, 2)) == false)
+  }
 }

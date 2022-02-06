@@ -119,6 +119,39 @@ object Chapter3 {
     def filter[A](l: List[A])(f: A => Boolean): List[A] =
       foldRightViaFL(l, Nil: List[A])((x, y) => if (f(x)) Cons(x, y) else y)
 
+    // Exercise 3.20 - flatMap
+    def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] =
+      foldRightViaFL(l, Nil: List[B])((x, y) => append(f(x), y))
+
+    // Exercise 3.21 - filter using flatMap
+    def filterViaFlatMap[A](l: List[A])(f: A => Boolean): List[A] =
+      flatMap(l)(x => if (f(x)) List(x) else Nil)
+
+    // Exercise 3.22
+    def zipAdd(l: List[Double], r: List[Double]): List[Double] = (l, r) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, zipAdd(t1, t2)) 
+    }
+
+    // Exercise 3.23
+    def zipWith[A, B, C](l: List[A], r: List[B])(f: (A, B) => C): List[C] = (l, r) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
+    }
+
+    // Exercise 3.24 - subsequence
+    def hasSubseq[A](l: List[A], sub: List[A]): Boolean = {
+      @annotation.tailrec
+      def loop(l: List[A], curr: List[A]): Boolean = (l, curr) match {
+        case (Nil, _) => curr == Nil
+        case (_, Nil) => true
+        case (Cons(h1, t1), Cons(h2, t2)) => if (h1 == h2) loop(t1, t2) else loop(t1, sub)
+      }
+      loop(l, sub)
+    }
+
     // reduce
     def reduce[A](l: List[A])(f: (A, A) => A) = l match {
       case Cons(h, t) => foldLeft(t, h)(f)
