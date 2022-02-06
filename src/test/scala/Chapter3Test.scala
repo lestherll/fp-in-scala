@@ -6,6 +6,8 @@ class Chapter3Test extends AnyFlatSpec {
 
   val l_string = List("a")
   val l_int = List(1)
+
+  val l_doubles = List(1.0, 2.0, 3.0, 4.0, 5.0)
   val l = List(1, 2, 3, 4, 5)
 
   "Exercise 3.1" should "result to 3" in {
@@ -111,5 +113,17 @@ class Chapter3Test extends AnyFlatSpec {
 
   "List.addOne" should "add one to each element" in {
     assert(List.addOne(l) == List(2, 3, 4, 5, 6))
-  }  
+  }
+
+  "List.doubleToString" should "convert list of doubles to list of strings" in {
+    assert(List.doubleToString(l_doubles) == List("1.0", "2.0", "3.0", "4.0", "5.0"))
+  }
+
+  "List.map" should "map function over elements" in {
+    assert(List.map(l)(_ * 2) == List[Double](2, 4, 6, 8, 10))
+  }
+
+  "List.filter" should "filter values that match f" in {
+    assert(List.filter(l)(_ % 2 == 0) == List(2, 4))
+  }
 }

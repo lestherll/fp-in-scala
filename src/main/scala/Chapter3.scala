@@ -1,5 +1,7 @@
 package fpinscala
 
+import org.scalactic.Bool
+
 object Chapter3 {
   
   trait List[+A]
@@ -104,6 +106,18 @@ object Chapter3 {
     // Exercise 3.16 - add 1 to each elem
     def addOne(l: List[Int]) =
       foldRightViaFL(l, Nil: List[Int])((x, y) => Cons(x+1, y))
+
+    // Exercise 3.17 - doubleToString
+    def doubleToString(l: List[Double]): List[String] =
+      foldRightViaFL(l, Nil: List[String])((x, y) => Cons(x.toString, y))
+
+    // Exercise 3.18 - map function
+    def map[A, B](l: List[A])(f: A => B): List[B] =
+      foldRightViaFL(l, Nil: List[B])((x, y) => Cons(f(x), y))
+
+    // Exercise 3.19 - filter
+    def filter[A](l: List[A])(f: A => Boolean): List[A] =
+      foldRightViaFL(l, Nil: List[A])((x, y) => if (f(x)) Cons(x, y) else y)
 
     // reduce
     def reduce[A](l: List[A])(f: (A, A) => A) = l match {
