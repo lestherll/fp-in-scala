@@ -144,4 +144,24 @@ class Chapter3Test extends AnyFlatSpec {
     assert(List.hasSubseq(l, Nil) == true)
     assert(List.hasSubseq(l, List(3, 2)) == false)
   }
+
+  "Tree.size" should "check number of nodes in tree" in {
+    assert(Tree.size(Branch(Leaf(1), Leaf(2))) == 3)
+    assert(Tree.size(Leaf(1)) == 1)
+  }
+
+  "Tree.max" should "check max num" in {
+    assert(Tree.max(Branch(Leaf(1), Leaf(2))) == 2)
+    assert(Tree.max(Leaf(1)) == 1)
+  }
+
+  "Tree.depth" should "check depth" in {
+    assert(Tree.depth(Branch(Leaf(1), Leaf(2))) == 1)
+    assert(Tree.depth(Branch(Branch(Leaf(1), Branch(Leaf(1), Leaf(2))), Leaf(2))) == 4)
+    assert(Tree.depth(Branch(Leaf(1), Leaf(2))) == 2)
+  }
+
+  "Tree.map" should "map function over nodes" in {
+    assert(Tree.map(Branch(Leaf(1), Leaf(2)))(x => x+1) == Branch(Leaf(2), Leaf(3)))
+  }
 }

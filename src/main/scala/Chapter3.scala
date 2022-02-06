@@ -190,5 +190,55 @@ object Chapter3 {
       else Cons(as.head, apply(as.tail: _*))
   
   }
+
+
+  // TREES
+  sealed trait Tree[+A]
+  case class Leaf[A](v: A) extends Tree[A]
+  case class Branch[A](l: Tree[A], r: Tree[A]) extends Tree[A]
+
+  object Tree {
+    // Exercise 3.25 - size
+    def size[A](t: Tree[A]): Int = t match {
+      case Branch(l, r) => 1 + size(l) + size(r)
+      case Leaf(v) => 1
+    }
+
+    // Exercise 3.26 - max
+    def max(t: Tree[Int]): Int = t match {
+      case Leaf(v) => v
+      case Branch(l, r) => max(l) max max(r)
+    }
+
+    // Exercise 3.27 - depth
+    def depth[A](t: Tree[A]): Int = t match {
+      case Leaf(_) => 0
+      case Branch(l,r) => 1 + (depth(l) max depth(r))
+    }
+
+    // Exercise 3.28 - map
+    def map[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
+      case Leaf(v) => Leaf(f(v))
+      case Branch(l, r) => Branch(map(l)(f), map(r)(f))
+    }
+
+    // Exercise 3.29 - fold and implementations of size, max, depth, map using fold
+    def fold[A,B](t: Tree[A])(f: A => B)(g: (B,B) => B): B = t match {
+      case Leaf(v) => f(v)
+      case Branch(l, r) => g(fold(l)(f)(g), fold(r)(f)(g))
+    }
+
+    def sizeViaFold[A](t: Tree[A]) =
+      fold(t)(x => 1)(1 + _ + _)
+
+    def maxViaFold(t: Tree[Int]) =
+      fold(t)(x => x)(_ max _)
+
+    def depthViaFold[A](t: Tree[A]) =
+      fold(t)(x => 0)((x, y) => 1 + (x max y))
+
+    def mapViaFold[A, B](t: Tree[A])(f: A => B): Tree[B] =
+      fold(t)(x => Leaf(f(x)): Tree[B])(Branch(_, _))
+  }
 }
 
